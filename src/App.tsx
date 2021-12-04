@@ -80,7 +80,7 @@ const App: FC = () => {
           <Box flex={1} height={'60vh'}>
             <QRCodeReader
               onReadQRCode={(result) => {
-                liff.init({ liffId: process.env.LIFF_ID as string || process.env.REACT_APP_LIFF_ID as string })
+                liff.init({ liffId: process.env.REACT_APP_LIFF_ID as string })
                   .then(() => {
                     if (!liff.isLoggedIn()) {
                       liff.login()
