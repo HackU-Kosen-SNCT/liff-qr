@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import liff from '@line/liff'
 import './App.css';
 
-const  App = () => {
+const App: React.FC = () => {
   React.useEffect(() => {
     liff.init({liffId: process.env.REACT_APP_LIFF_ID as string})
       .then(() => {
@@ -20,7 +20,7 @@ const  App = () => {
                     const userId = profile.userId
                     console.log(itemId, userId) // TODO post to server
                   })
-                  .catch((e) => {
+                  .catch((e: unknown) => {
                     console.error(e)
                   })
               }
@@ -28,7 +28,7 @@ const  App = () => {
                 console.error('Invalid itemId is null or out of range.')
               }
             })
-            .catch((e) => {
+            .catch((e: unknown) => {
               console.error(e)
             })
         }
@@ -36,7 +36,7 @@ const  App = () => {
           console.error('Login process did not complete')
         }
       })
-    .catch((e) => {
+    .catch((e: unknown) => {
       console.error(e)
     })
   }, [])
