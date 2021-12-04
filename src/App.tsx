@@ -39,7 +39,7 @@ const App: FC = () => {
       <Container>
         <Flex flexDirection='column'>
           <Heading>QRコードにかざしてね</Heading>
-          <Box flex={1} height={'100vh'}>
+          <Box flex={1} height={'70vh'}>
             <QRCodeReader
               onReadQRCode={(result) => {
                 liff.init({ liffId: process.env.REACT_APP_LIFF_ID as string })
@@ -72,11 +72,11 @@ const App: FC = () => {
               }}
             />
           </Box>
-        </Flex>
-        <Flex flexDirection='column'>
-          <Heading>登録が完了しました</Heading>
-          <QRCodeResult QRCodes={result} />
-          <Button color='primary' onPress={() => {liff.closeWindow()}}>Close</Button>
+          <Box flex={1} height={'30vh'}>
+            <Heading>登録が完了しました</Heading>
+            <QRCodeResult QRCodes={result} />
+            <Button color='primary' onPress={() => {liff.closeWindow()}}>Close</Button>
+          </Box>
         </Flex>
       </Container>
     </ChakraProvider>
