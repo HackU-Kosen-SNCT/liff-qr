@@ -5,14 +5,36 @@ import {
   Container,
   Flex,
   Heading,
-  Button
+  Button,
+  Table,
+  Tr,
+  Td,
+  Fade,
+  Tbody
 } from '@chakra-ui/react'
 import liff from '@line/liff'
 import QRCodeReader from './QRCodeReader'
 import axios from './axios'
 
+const QRCodeResult: FC<{ QRCodes: string[] }> = ({ QRCodes }) => {
+  return (
+    <Table>
+      <Tbody>
+        {QRCodes.map((QR, i) => (
+          <Tr key={i}>
+            <Td>
+              <Fade in={true}>{QR}</Fade>
+            </Td>
+          </Tr>
+        ))}
+      </Tbody>
+    </Table>
+  )
+}
+
 const App: FC = () => {
   const [UIFlag, setUIFlag] = useState<boolean>(true)
+  const [result, setResult] = useState<string[]>([])
   return (
     <ChakraProvider>
       <Container>
@@ -33,7 +55,10 @@ const App: FC = () => {
                             userId: profile.userId,
                             itemId: result.getText()
                           })
-                            .then(() => {
+                            .then((response) => {
+                              setResult((r) => {
+                                return [response.data, ...r]
+                              })
                               setUIFlag(false)
                             })
                             .catch((e: unknown) => {
@@ -54,6 +79,7 @@ const App: FC = () => {
         ) : (
           <Flex flexDirection='column'>
             <Heading>登録が完了しました</Heading>
+            <QRCodeResult QRCodes={result} />
             <Button color='primary'>Close</Button>
           </Flex>
         )}
