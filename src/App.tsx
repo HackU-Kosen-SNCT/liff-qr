@@ -34,7 +34,7 @@ const App: FC = () => {
                             itemId: result.getText()
                           })
                             .then(() => {
-                              setUIFlag(!UIFlag)
+                              setUIFlag(false)
                             })
                             .catch((e: unknown) => {
                               console.error(e)
