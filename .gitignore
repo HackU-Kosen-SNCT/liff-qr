@@ -19,6 +19,9 @@
 .env.production.local
 .env
 
+# death code
+/archive
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

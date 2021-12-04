@@ -1,11 +1,4 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
-}
-
-.App-qrValue {
-  font-size: 1.2rem;
-}
-
-.App-qrButton {
-  margin-top: 20px;
 }
