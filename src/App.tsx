@@ -1,59 +1,54 @@
-import React from 'react'
-import liff from '@line/liff'
-import Button from '@material-ui/core/Button';
-import './App.css';
+import React, { FC, useEffect, useState, useRef } from 'react'
+import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser'
+import { Result } from '@zxing/library'
+import {
+  Box,
+  ChakraProvider,
+  Container,
+  Fade,
+  Flex,
+  Heading,
+  Table,
+  Tbody,
+  Td,
+  Tr
+} from '@chakra-ui/react'
 
-const App: React.FC = () => {
-  const [ value, setValue ] = React.useState<string>('')
-  const qr = ():void => {
-    liff.init({liffId: process.env.LIFF_ID as string || process.env.REACT_APP_LIFF_ID as string})
-      .then(() => {
-        if(!liff.isLoggedIn()) {
-          liff.login({})
+const QRCodeReader: FC<{ onReadQRCode: (text: Result) => void }> = ({ onReadQRCode }) => {
+  const controlRef = useRef<IScannerControls | null>()
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (!videoRef.current) {
+      return
+    }
+    const codeRender = new BrowserQRCodeReader()
+    codeRender.decodeFromVideoDevice(
+      undefined,
+      videoRef.current,
+      (result, error, controls) => {
+        if (error) {
+          return
         }
-        else if(liff.isInClient()) {
-          liff.scanCodeV2()
-            .then((result) => {
-              const itemId = result.value
-              if ( itemId ) {
-                liff.getProfile()
-                  .then((profile) => {
-                    const userId = profile.userId
-                    setValue(`${itemId}, ${userId}`) // TODO post to server
-                  })
-                  .catch((e: unknown) => {
-                    console.error(e)
-                  })
-              }
-              else {
-                console.error('Invalid itemId is null or out of range.')
-              }
-            })
-            .then(() => {
-              liff.closeWindow()
-            })
-            .catch((e: unknown) => {
-              console.error(e)
-            })
+        if (result) {
+          onReadQRCode(result)
         }
-        else {
-          console.error('Login process did not complete')
-        }
-      })
-      .catch((e: unknown) => {
-        console.error(e)
-      })
-  }
+        controlRef.current = controls
+      }
+    )
+    return () => {
+      if (!controlRef.current) {
+        return
+      }
+      controlRef.current.stop()
+      controlRef.current = null
+    }
+  }, [onReadQRCode])
+
   return (
-    <div className="App">
-      <div className="qrValue">{value}</div>
-      <div className="qrButton">
-        <Button variant="contained" color="primary" onClick={() => qr()}>
-          Open QR camera
-        </Button>
-      </div>
-    </div>
-  );
+    <video
+      style={{ maxWidth: "100%", maxHeight: "100%", height: "100%" }}
+      ref={videoRef}
+    />
+  )
 }
-
-export default App;
