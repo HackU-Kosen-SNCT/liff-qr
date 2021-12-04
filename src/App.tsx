@@ -5,7 +5,7 @@ import './App.css';
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    liff.init({liffId: process.env.REACT_APP_LIFF_ID as string})
+    liff.init({liffId: process.env.LIFF_ID as string || process.env.REACT_APP_LIFF_ID as string})
       .then(() => {
         if(!liff.isLoggedIn()) {
           liff.login({})
