@@ -39,7 +39,7 @@ const App: FC = () => {
       <Container>
         <Flex flexDirection='column'>
           <Heading>QRコードにかざしてね</Heading>
-          <Box flex={1} height={'70vh'}>
+          <Box flex={1} height={'50vh'}>
             <QRCodeReader
               onReadQRCode={(result) => {
                 liff.init({ liffId: process.env.REACT_APP_LIFF_ID as string })
@@ -49,7 +49,7 @@ const App: FC = () => {
                     }
                     liff.getProfile()
                       .then((profile) => {
-                        axios.post('/laf', {
+                        axios.post('/users', {
                           userId: profile.userId,
                           itemId: result.getText()
                         })
@@ -72,10 +72,10 @@ const App: FC = () => {
               }}
             />
           </Box>
-          <Box flex={1} height={'30vh'}>
+          <Box flex={1} height={'50vh'}>
             <Heading>登録が完了しました</Heading>
             <QRCodeResult QRCodes={result} />
-            <Button color='primary' onPress={() => {liff.closeWindow()}}>Close</Button>
+            <Button color='#0aff84' onClick={() => {liff.closeWindow()}}>Close</Button>
           </Box>
         </Flex>
       </Container>
