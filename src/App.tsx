@@ -53,9 +53,9 @@ const App: FC = () => {
                           userId: profile.userId,
                           itemId: result.getText()
                         })
-                          .then((response) => {
+                          .then(() => {
                             setResult((r) => {
-                              return [response.data, ...r]
+                              return [`${profile.userId}, ${result.getText()}`, ...r]
                             })
                           })
                           .catch((e: unknown) => {
