@@ -13,7 +13,7 @@ import {
   Td,
   Tr
 } from '@chakra-ui/react'
-import liff from '@line/liff/dist/lib'
+import liff from '@line/liff'
 
 const QRCodeReader: FC<{ onReadQRCode: (text: Result) => void }> = ({ onReadQRCode }) => {
   const controlRef = useRef<IScannerControls | null>()
