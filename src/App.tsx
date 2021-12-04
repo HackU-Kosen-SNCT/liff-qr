@@ -3,42 +3,49 @@ import logo from './logo.svg';
 import liff from '@line/liff'
 import './App.css';
 
-const App: React.FC = () => {
-  React.useEffect(() => {
-    liff.init({liffId: process.env.LIFF_ID as string || process.env.REACT_APP_LIFF_ID as string})
-      .then(() => {
-        if(!liff.isLoggedIn()) {
-          liff.login({})
-        }
-        else if(liff.isInClient()) {
-          liff.scanCodeV2()
-            .then((result) => {
-              const itemId = result.value
-              if ( itemId ) {
-                liff.getProfile()
-                  .then((profile) => {
-                    const userId = profile.userId
-                    console.log(itemId, userId) // TODO post to server
-                  })
-                  .catch((e: unknown) => {
-                    console.error(e)
-                  })
-              }
-              else {
-                console.error('Invalid itemId is null or out of range.')
-              }
-            })
-            .catch((e: unknown) => {
-              console.error(e)
-            })
-        }
-        else {
-          console.error('Login process did not complete')
-        }
-      })
+const qr = ():void => {
+  liff.init({liffId: process.env.LIFF_ID as string || process.env.REACT_APP_LIFF_ID as string})
+    .then(() => {
+      if(!liff.isLoggedIn()) {
+        liff.login({})
+      }
+      else if(liff.isInClient()) {
+        liff.scanCodeV2()
+          .then((result) => {
+            const itemId = result.value
+            if ( itemId ) {
+              liff.getProfile()
+                .then((profile) => {
+                  const userId = profile.userId
+                  console.log(itemId, userId) // TODO post to server
+                })
+                .catch((e: unknown) => {
+                  console.error(e)
+                })
+            }
+            else {
+              console.error('Invalid itemId is null or out of range.')
+            }
+          })
+          .then(() => {
+            liff.closeWindow()
+          })
+          .catch((e: unknown) => {
+            console.error(e)
+          })
+      }
+      else {
+        console.error('Login process did not complete')
+      }
+    })
     .catch((e: unknown) => {
       console.error(e)
     })
+}
+
+const App: React.FC = () => {
+  React.useEffect(() => {
+    qr()
   }, [])
   return (
     <div className="App">
