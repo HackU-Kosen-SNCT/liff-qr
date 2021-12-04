@@ -1,59 +1,115 @@
-import React from 'react'
-import liff from '@line/liff'
-import Button from '@material-ui/core/Button';
-import './App.css';
+import { FC, useEffect, useState, useRef } from 'react'
+import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser'
+import { Result } from '@zxing/library'
+import {
+  Box,
+  ChakraProvider,
+  Container,
+  Fade,
+  Flex,
+  Heading,
+  Table,
+  Tbody,
+  Td,
+  Tr
+} from '@chakra-ui/react'
+import liff from '@line/liff/dist/lib'
 
-const App: React.FC = () => {
-  const [ value, setValue ] = React.useState<string>('')
-  const qr = ():void => {
-    liff.init({liffId: process.env.LIFF_ID as string || process.env.REACT_APP_LIFF_ID as string})
-      .then(() => {
-        if(!liff.isLoggedIn()) {
-          liff.login({})
+const QRCodeReader: FC<{ onReadQRCode: (text: Result) => void }> = ({ onReadQRCode }) => {
+  const controlRef = useRef<IScannerControls | null>()
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (!videoRef.current) {
+      return
+    }
+    const codeRender = new BrowserQRCodeReader()
+    codeRender.decodeFromVideoDevice(
+      undefined,
+      videoRef.current,
+      (result, error, controls) => {
+        if (error) {
+          return
         }
-        else if(liff.isInClient()) {
-          liff.scanCodeV2()
-            .then((result) => {
-              const itemId = result.value
-              if ( itemId ) {
-                liff.getProfile()
-                  .then((profile) => {
-                    const userId = profile.userId
-                    setValue(`${itemId}, ${userId}`) // TODO post to server
+        if (result) {
+          onReadQRCode(result)
+        }
+        controlRef.current = controls
+      }
+    )
+    return () => {
+      if (!controlRef.current) {
+        return
+      }
+      controlRef.current.stop()
+      controlRef.current = null
+    }
+  }, [onReadQRCode])
+
+  return (
+    <video
+      style={{ maxWidth: "100%", maxHeight: "100%", height: "100%" }}
+      ref={ videoRef }
+    />
+  )
+}
+
+/**This is for debugging **/
+const QRCodeResult: FC<{ QRCodes: string[] }> = ({ QRCodes }) => {
+  return (
+    <Table>
+      <Tbody>
+        {QRCodes.map((QR, i) => (
+          <Tr key={i}>
+            <Td>
+              <Fade in={true}>{QR}</Fade>
+            </Td>
+          </Tr>
+        ))}
+      </Tbody>
+    </Table>
+  )
+}
+
+const App: FC = () => {
+  const [QRCodes, setQRCodes] = useState<string[]>([])
+  return (
+    <ChakraProvider>
+      <Container>
+        <Flex flexDirection='column'>
+          <Box flex={1} height={'60vh'}>
+            <QRCodeReader
+              onReadQRCode={(result) => {
+                liff.init({ liffId: process.env.LIFF_ID as string || process.env.REACT_APP_LIFF_ID as string })
+                  .then(() => {
+                    if (!liff.isLoggedIn()) {
+                      liff.login()
+                    }
+                    liff.getProfile()
+                      .then((profile) => {
+                        const data = `${result.getText()}, ${profile.userId}`
+                        setQRCodes((codes) => {
+                          return [data, ...codes]
+                        })
+                      })
+                      .catch((e: unknown) => {
+                        console.error(e)
+                      })
                   })
                   .catch((e: unknown) => {
                     console.error(e)
                   })
-              }
-              else {
-                console.error('Invalid itemId is null or out of range.')
-              }
-            })
-            .then(() => {
-              liff.closeWindow()
-            })
-            .catch((e: unknown) => {
-              console.error(e)
-            })
-        }
-        else {
-          console.error('Login process did not complete')
-        }
-      })
-      .catch((e: unknown) => {
-        console.error(e)
-      })
-  }
-  return (
-    <div className="App">
-      <div className="qrValue">{value}</div>
-      <div className="qrButton">
-        <Button variant="contained" color="primary" onClick={() => qr()}>
-          Open QR camera
-        </Button>
-      </div>
-    </div>
-  );
+              }}
+            />
+          </Box>
+          <Box flex={1} height={'40vh'}>
+            <Heading>Result</Heading>
+            <QRCodeResult QRCodes={QRCodes} />
+          </Box>
+        </Flex>
+      </Container>
+    </ChakraProvider>
+  )
 }
 
-export default App;
+export default App
