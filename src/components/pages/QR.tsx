@@ -16,9 +16,9 @@ const QR: FC = () => {
   return (
     <ChakraProvider>
       <Container>
-        <Flex flexDirection='column'>
-          <Heading>QRコードにかざしてね</Heading>
-          <Box flex={1} height={'100vh'}>
+        <Flex flexDirection='column' alignItems='center'>
+          <Heading textAlign='center'>QRコードにかざしてね</Heading>
+          <Box flex={1} w={'80%'} py={'40%'} alignItems='center'>
             <QRCodeReader
               onReadQRCode={(result) => {
                 liff.init({ liffId: process.env.REACT_APP_LIFF_ID as string })
