@@ -28,7 +28,7 @@ const QR: FC = () => {
                     }
                     liff.getProfile()
                       .then((profile) => {
-                        axios.patch('/laf', {
+                        axios.patch('/laf/registrant', {
                           userId: profile.userId,
                           itemId: result.getText()
                         })
