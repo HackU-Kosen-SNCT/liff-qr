@@ -1,11 +1,10 @@
 import axiosBase from 'axios'
 
 const axios = axiosBase.create({
-  baseURL: 'https://jsonplaceholder.typicode.com',
+  baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json'
-  },
-  responseType: 'json'
+  }
 })
 
 export default axios
