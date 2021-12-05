@@ -18,7 +18,7 @@ const QR: FC = () => {
       <Container>
         <Flex flexDirection='column'>
           <Heading>QRコードにかざしてね</Heading>
-          <Box flex={1} height={'100vh'}>
+          <Box flex={1} width={'80%'} pt={'80%'}>
             <QRCodeReader
               onReadQRCode={(result) => {
                 liff.init({ liffId: process.env.REACT_APP_LIFF_ID as string })
