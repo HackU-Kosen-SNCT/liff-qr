@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useLayoutEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
   ChakraProvider,
@@ -14,18 +14,16 @@ const Result: FC = () => {
   const [completion, setCompletion] = useState<boolean>(false)
   const location = useLocation()
   const navigate = useNavigate()
-  useEffect(() => {
-    if (!location.state.flag) {
-      navigate('/', {replace: false})
-    }
-    setCompletion(true)
-  }, [location.state.flag, navigate])
+  useLayoutEffect(() => {
+    setCompletion(location.state.flag as boolean)
+  }, [location.state.flag])
   return (
     <ChakraProvider>
       <Container>
         <Flex flexDirection='column' alignItems='center'>
-          <Heading textAlign='center'>{completion ? '登録が完了しました' : '通信中です'}</Heading>
+          <Heading textAlign='center'>{completion ? '登録が完了しました' : '登録に失敗しました'}</Heading>
           <Box flex={1} height={'100vh'} alignItems='center'>
+            <Button color='#0aff84' onClick={() => navigate('/', {replace: false})} disabled={completion}>Scan again</Button>
             <Button color='#0aff84' onClick={() => liff.closeWindow()} disabled={!completion}>Close</Button>
           </Box>
         </Flex>
