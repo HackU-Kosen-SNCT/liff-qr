@@ -33,10 +33,10 @@ const QR: FC = () => {
                           itemId: result.getText()
                         })
                         .then(() => {
-                          navigate('/result', {replace: true, state: {flag: true}})
+                          navigate('/result', {replace: false, state: {flag: true}})
                         })
                         .catch(() => {
-                          navigate('/result', {replace: true, state: {flag: false}})
+                          navigate('/result', {replace: false, state: {flag: false}})
                         })
                       })
                       .catch((e: unknown) => {
