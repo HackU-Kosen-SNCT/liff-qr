@@ -9,6 +9,7 @@ import {
 import liff from '@line/liff'
 import { useNavigate } from 'react-router-dom'
 import QRCodeReader from './QRCodeReader'
+import axios from '../lib/axios'
 
 const QR: FC = () => {
   const navigate = useNavigate()
@@ -16,8 +17,8 @@ const QR: FC = () => {
     <ChakraProvider>
       <Container>
         <Flex flexDirection='column'>
+          <Heading>QRコードにかざしてね</Heading>
           <Box flex={1} height={'100vh'}>
-            <Heading>QRコードにかざしてね</Heading>
             <QRCodeReader
               onReadQRCode={(result) => {
                 liff.init({ liffId: process.env.REACT_APP_LIFF_ID as string })
@@ -27,7 +28,16 @@ const QR: FC = () => {
                     }
                     liff.getProfile()
                       .then((profile) => {
-                        navigate('/result', {state: {user: profile.userId, item: result.getText()}})
+                        axios.patch('/laf', {
+                          userId: profile.userId,
+                          itemId: result.getText()
+                        })
+                        .then(() => {
+                          navigate('/result', {replace: false, state: {flag: true}})
+                        })
+                        .catch(() => {
+                          navigate('/result', {replace: false, state: {flag: false}})
+                        })
                       })
                       .catch((e: unknown) => {
                         console.error(e)
