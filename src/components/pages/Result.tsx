@@ -23,9 +23,9 @@ const Result: FC = () => {
   return (
     <ChakraProvider>
       <Container>
-        <Flex flexDirection='column'>
-          <Heading>{completion ? '登録が完了しました' : '通信中です'}</Heading>
-          <Box flex={1} height={'100vh'}>
+        <Flex flexDirection='column' alignItems='center'>
+          <Heading textAlign='center'>{completion ? '登録が完了しました' : '通信中です'}</Heading>
+          <Box flex={1} height={'100vh'} alignItems='center'>
             <Button color='#0aff84' onClick={() => liff.closeWindow()} disabled={!completion}>Close</Button>
           </Box>
         </Flex>
