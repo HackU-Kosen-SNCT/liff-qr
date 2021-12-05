@@ -7,9 +7,8 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<QR />}>
-          <Route path='result' element={<Result />} />
-        </Route>
+        <Route path='/' element={<QR />} />
+        <Route path='result' element={<Result />} />
       </Routes>
     </Router>
   )
