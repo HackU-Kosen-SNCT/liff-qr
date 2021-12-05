@@ -15,8 +15,8 @@ const Result: FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
   useEffect(() => {
-    if (location.state.flag) {
-      navigate('/', {replace: false})
+    if (!location.state.flag) {
+      navigate('/', {replace: true})
     }
     setCompletion(true)
   }, [location.state.flag, navigate])
