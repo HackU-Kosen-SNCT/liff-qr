@@ -35,7 +35,7 @@ const QRCodeReader: FC<{ onReadQRCode: (text: Result) => void }> = ({ onReadQRCo
 
   return (
     <video
-      style={{ maxWidth: "95vmin", maxHeight: "95vmin", height: "95vmin", width: "95vmin" }}
+      style={{ maxWidth: "100vmax", maxHeight: "100vmax", height: "100vmax", width: "100vmax" }}
       ref={ videoRef }
     />
   )
