@@ -3,15 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./lib/vconsole.min.js"></script>
     <title>QR Code Reader</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
-      // VConsole will be exported to `window.VConsole` by default.
-      var vConsole = new window.VConsole();
-    </script>
+      window.onload = function(){
+          initVConsole()
+      }
+      function initVConsole() {
+          window.vConsole = new window.VConsole({
+              defaultPlugins: ['system', 'network', 'element', 'storage'],
+              maxLogNumber: 1000,
+              onReady: function() {
+                  console.log('vConsole is ready.')
+              },
+              onClearLog: function() {
+                  console.log('on clearLog')
+              }
+          });
+      }
+      </script>
     <div id="root"></div>
   </body>
 </html>
