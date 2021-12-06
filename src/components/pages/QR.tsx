@@ -41,11 +41,11 @@ const QR: FC = () => {
                             'Content-Type': 'application/json;charset=utf-8'
                           }
                         })
-                        .then(() => {
-                          navigate('/result', {replace: false, state: {flag: true}})
+                        .then((result) => {
+                          console.log(result)
                         })
-                        .catch(() => {
-                          vConsole.show()
+                        .catch((e) => {
+                          console.error(e)
                         })
                       })
                       .catch((e: unknown) => {
