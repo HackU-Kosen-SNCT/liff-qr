@@ -9,7 +9,7 @@ import {
 import liff from '@line/liff'
 import { useNavigate } from 'react-router-dom'
 import QRCodeReader from './QRCodeReader'
-import axios from '../lib/axios'
+import axios from 'axios'
 
 const QR: FC = () => {
   const navigate = useNavigate()
@@ -28,9 +28,16 @@ const QR: FC = () => {
                     }
                     liff.getProfile()
                       .then((profile) => {
-                        axios.patch('/laf/registrant', {
-                          registrant: profile.userId,
-                          item_id: result.getText()
+                        axios({
+                          method: 'PATCH',
+                          url: 'http://localhost:3000/laf/registrant',
+                          data: {
+                            registrant: profile.userId,
+                            item_id: result.getText()
+                          },
+                          headers: {
+                            'Content-Type': 'application/json'
+                          }
                         })
                         .then(() => {
                           navigate('/result', {replace: false, state: {flag: true}})
