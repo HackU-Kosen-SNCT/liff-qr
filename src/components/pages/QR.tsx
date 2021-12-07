@@ -39,10 +39,12 @@ const QR: FC = () => {
                             item_id: result.getText()
                           }
                         })
-                        .then(() => {
+                        .then((r) => {
+                          console.log(r)
                           navigate('/result', {replace: false, state: {flag: true}})
                         })
-                        .catch(() => {
+                        .catch((e) => {
+                          console.log(e)
                           navigate('/result', {replace: false, state: {flag: true}})
                         })
                       })
