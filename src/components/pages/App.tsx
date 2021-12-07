@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import QR from './components/pages/QR'
-import Result from './components/pages/Result'
+import QR from './QR'
+import Result from './Result'
 
 const App: React.FC = () => {
   return (
