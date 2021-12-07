@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import liff from '@line/liff'
 import QR from './QR'
 import Result from './Result'
-import liff from '@line/liff'
 
 const App: React.FC = () => {
   useEffect(() => {
