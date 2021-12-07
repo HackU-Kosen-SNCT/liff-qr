@@ -15,6 +15,7 @@ import VConsole from 'vconsole'
 const QR: FC = () => {
   const navigate = useNavigate()
   const vConsole = new VConsole()
+  vConsole.show()
   return (
     <ChakraProvider>
       <Container>
@@ -36,18 +37,13 @@ const QR: FC = () => {
                           data: {
                             registrant: profile.userId,
                             item_id: result.getText()
-                          },
-                          headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
                           }
                         })
-                        .then((r) => {
-                          console.log(r)
+                        .then(() => {
                           navigate('/result', {replace: false, state: {flag: true}})
                         })
-                        .catch((e) => {
-                          vConsole.show()
-                          console.error(e)
+                        .catch(() => {
+                          navigate('/result', {replace: false, state: {flag: true}})
                         })
                       })
                       .catch((e: unknown) => {
