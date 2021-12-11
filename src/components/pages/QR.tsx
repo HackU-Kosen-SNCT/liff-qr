@@ -1,8 +1,10 @@
 import { FC } from 'react'
 import {
+  Text,
   ChakraProvider,
   Container,
   Flex,
+  Box,
 } from '@chakra-ui/react'
 import liff from '@line/liff'
 import { useNavigate } from 'react-router-dom'
@@ -53,6 +55,19 @@ const QR: FC = () => {
                 })
             }}
           />
+          <Box p={'9.4vw'}>
+            <Text align="center" color="#02331b" fontSize={'2vh'} mb={'3.2vh'}>QRコードにかざしてください</Text>
+            <Box fontSize={'1.5vh'}>
+              <Box align="center" mb={'1.5vh'}>
+                <Text color="#5a7165">QRコードを読むと</Text>
+                <Text color="#5a7165">あなたが落とし物を拾ったことを登録します。</Text>
+              </Box>
+              <Box align="center">
+                <Text color="#5a7165">他のユーザにあなたの情報が</Text>
+                <Text color="#5a7165">公開されることはありません。</Text>
+              </Box>
+            </Box>
+          </Box>
         </Flex>
       </Container>
     </ChakraProvider>
