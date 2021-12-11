@@ -60,7 +60,8 @@ const QR: FC = () => {
             <Box fontSize={'2.5vh'}>
               <Box align="center" mb={'1.5vh'}>
                 <Text color="#5a7165">QRコードを読むと</Text>
-                <Text color="#5a7165">あなたが落とし物を拾ったことを登録します。</Text>
+                <Text color="#5a7165">あなたが落とし物を拾ったことを</Text>
+                <Text color="#5a7165">登録します。</Text>
               </Box>
               <Box align="center">
                 <Text color="#5a7165">他のユーザにあなたの情報が</Text>
