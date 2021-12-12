@@ -6,7 +6,7 @@ import {
   Box,
   Text
 } from '@chakra-ui/react'
-import Icon from '../assets/Thankyou'
+import { ReactComponent as Icon } from '../../assets/thankyou.svg'
 
 const Result: FC = () => {
   return (
