@@ -16,7 +16,7 @@ const Result: FC = () => {
           <Box>
             <Text color="#02331b" align="center">登録が完了しました！</Text>
             <Text color="#5a7165" align="center">ブラウザを閉じてください。</Text>
-            <Box textAlign="center">
+            <Box as="div" textAlign="center">
               <img alt="Thank you!" src={thankyou} width="50%" height="50%" />
             </Box>
           </Box>
