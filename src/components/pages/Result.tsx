@@ -13,7 +13,7 @@ const Result: FC = () => {
   return (
     <ChakraProvider>
       <Container>
-        <Flex flexDirection='column' alignItems='center' justifyItems="center">
+        <Flex flexDirection='column' alignItems='center' justify="center">
           <Box align='center'>
             <Text color="#02331b" align="center">登録が完了しました！</Text>
             <Text color="#5a7165" align="center">ブラウザを閉じてください。</Text>
