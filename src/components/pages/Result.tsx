@@ -7,7 +7,11 @@ import {
   Text
 } from '@chakra-ui/react'
 import thankyou from '../../assets/thankyou.svg'
-import '../../styles/svg.css'
+import styled from 'styled-components'
+
+const StyledDiv = styled.div`
+  text-align: center
+`
 
 const Result: FC = () => {
   return (
@@ -17,9 +21,9 @@ const Result: FC = () => {
           <Box>
             <Text color="#02331b" align="center">登録が完了しました！</Text>
             <Text color="#5a7165" align="center">ブラウザを閉じてください。</Text>
-            <div className='svg'>
+            <StyledDiv>
               <img alt="Thank you!" src={thankyou} width="50%" height="50%" />
-            </div>
+            </StyledDiv>
           </Box>
         </Flex>
       </Container>
