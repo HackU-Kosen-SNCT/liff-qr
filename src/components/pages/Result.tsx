@@ -16,7 +16,9 @@ const Result: FC = () => {
           <Box>
             <Text color="#02331b" align="center">登録が完了しました！</Text>
             <Text color="#5a7165" align="center">ブラウザを閉じてください。</Text>
-            <img alt="Thank you!" src={thankyou} width="50%" height="50%" style={{alignSelf: 'center'}} />
+            <Box textAlign="center">
+              <img alt="Thank you!" src={thankyou} width="50%" height="50%" />
+            </Box>
           </Box>
         </Flex>
       </Container>
