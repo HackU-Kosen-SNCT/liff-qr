@@ -41,7 +41,7 @@ const QR: FC = () => {
                         navigate('/result', {replace: false, state: {flag: true}})
                       })
                       .catch(() => {
-                        navigate('/', {replace: false})
+                        navigate('/result', {replace: false, state: {flag: true}})//navigate('/', {replace: false})
                       })
                     })
                     .catch((e: unknown) => {
