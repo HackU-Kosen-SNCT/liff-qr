@@ -11,10 +11,12 @@ import { useNavigate } from 'react-router-dom'
 import QRCodeReader from './QRCodeReader'
 import axios from 'axios'
 import VConsole from 'vconsole'
+import { useAlert } from 'react-alert'
 
 const QR: FC = () => {
   const navigate = useNavigate()
   const vConsole = new VConsole()
+  const alert = useAlert()
   vConsole.show()
   return (
     <ChakraProvider>
@@ -37,13 +39,11 @@ const QR: FC = () => {
                           item_id: result.getText()
                         }
                       })
-                      .then((r) => {
-                        console.log(r)
+                      .then(() => {
                         navigate('/result', {replace: false, state: {flag: true}})
                       })
-                      .catch((e: unknown) => {
-                        console.log(e)
-                        navigate('/result', {replace: false, state: {flag: true}})
+                      .catch(() => {
+                        alert.error('QRコードを読み取れませんでした。もう一度かざしてください。')
                       })
                     })
                     .catch((e: unknown) => {
