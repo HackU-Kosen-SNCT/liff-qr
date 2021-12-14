@@ -1,4 +1,5 @@
-import { FC } from 'react'
+import { useState, useEffect } from 'react'
+import type { VFC } from 'react'
 import {
   Text,
   ChakraProvider,
@@ -7,15 +8,20 @@ import {
   Box,
 } from '@chakra-ui/react'
 import liff from '@line/liff'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import QRCodeReader from './QRCodeReader'
 import axios from 'axios'
 import VConsole from 'vconsole'
 
-const QR: FC = () => {
+const QR: VFC = () => {
+  const [scanflag, setScanflag] = useState<boolean>(true)
   const navigate = useNavigate()
+  const location = useLocation()
   const vConsole = new VConsole()
   vConsole.show()
+  useEffect(() => {
+    setScanflag(location.state.flag as boolean)
+  }, [location.state.flag])
   return (
     <ChakraProvider>
       <Container>
@@ -41,7 +47,7 @@ const QR: FC = () => {
                         navigate('/result', {replace: false, state: {flag: true}})
                       })
                       .catch(() => {
-                        navigate('/', {replace: false})
+                        navigate('/', {replace: false, state: {flag: false}})
                       })
                     })
                     .catch((e: unknown) => {
@@ -54,7 +60,14 @@ const QR: FC = () => {
             }}
           />
           <Box p={'9.4vw'}>
-            <Text align="center" color="#02331b" fontSize={'3vh'} mb={'3.2vh'}>QRコードにかざしてください</Text>
+            { scanflag ? (
+              <Text align="center" color="#02331b" fontSize={'3vh'} mb={'3.2vh'}>QRコードにかざしてください</Text>
+            ) : (
+              <>
+                <Text align="center" color="#02331b" fontSize={'2.6vh'}>うまく読み取れなかったので</Text>
+                <Text align="center" color="#02331b" fontSize={'2.6vh'} mb={'3.2vh'}>もう一度お願いします</Text>
+              </>
+            ) }
             <Box fontSize={'2.5vh'}>
               <Box align="center" mb={'1.5vh'}>
                 <Text color="#5a7165">QRコードを読むと</Text>
