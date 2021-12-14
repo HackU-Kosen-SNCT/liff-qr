@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import liff from '@line/liff'
 import QR from './QR'
 import Result from './Result'
+import { NaviProvider } from '../utils/Naviflag'
 
 const App: React.VFC = () => {
   useEffect(() => {
@@ -14,12 +15,14 @@ const App: React.VFC = () => {
       })
   }, [])
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<QR />} />
-        <Route path='result' element={<Result />} />
-      </Routes>
-    </Router>
+    <NaviProvider>
+      <Router>
+        <Routes>
+          <Route path='/' element={<QR />} />
+          <Route path='result' element={<Result />} />
+        </Routes>
+      </Router>
+    </NaviProvider>
   )
 }
 
