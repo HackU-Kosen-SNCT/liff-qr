@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useContext } from 'react'
 import type { VFC } from 'react'
 import {
   Text,
@@ -8,26 +8,17 @@ import {
   Box,
 } from '@chakra-ui/react'
 import liff from '@line/liff'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import QRCodeReader from './QRCodeReader'
+import { Naviflag } from '../utils/Naviflag'
 import axios from 'axios'
 import VConsole from 'vconsole'
 
 const QR: VFC = () => {
-  const [scanflag, setScanflag] = useState<boolean>(true)
+  const {scanflag, setScanFlag} = useContext(Naviflag)
   const navigate = useNavigate()
-  const location = useLocation()
-  const renderFlgRef = useRef(false)
   const vConsole = new VConsole()
   vConsole.show()
-  useEffect(() => {
-    if(renderFlgRef.current) {
-      setScanflag(location.state.flag as boolean)
-    }
-    else {
-      renderFlgRef.current = true
-    }
-  }, [])
   return (
     <ChakraProvider>
       <Container>
@@ -50,10 +41,10 @@ const QR: VFC = () => {
                         }
                       })
                       .then(() => {
-                        navigate('/result', {replace: false, state: {flag: true}})
+                        navigate('/result', { replace: false })
                       })
                       .catch(() => {
-                        navigate('/', {replace: false, state: {flag: false}})
+                        setScanFlag(false)
                       })
                     })
                     .catch((e: unknown) => {
