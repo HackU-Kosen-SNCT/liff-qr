@@ -4,7 +4,7 @@ import liff from '@line/liff'
 import QR from './QR'
 import Result from './Result'
 
-const App: React.VFC = () => {
+const App: React.FC = () => {
   useEffect(() => {
     liff.init({ liffId: process.env.REACT_APP_LIFF_ID as string })
       .then(() => {
