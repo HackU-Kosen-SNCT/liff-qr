@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { VFC } from 'react'
 import {
   ChakraProvider,
   Container,
@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import thankyou from '../../assets/thankyou.svg'
 
-const Result: FC = () => {
+const Result: VFC = () => {
   return (
     <ChakraProvider>
       <Container>

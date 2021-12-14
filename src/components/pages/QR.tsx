@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import type { FC } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import type { VFC } from 'react'
 import {
   Text,
   ChakraProvider,
@@ -13,15 +13,21 @@ import QRCodeReader from './QRCodeReader'
 import axios from 'axios'
 import VConsole from 'vconsole'
 
-const QR: FC = () => {
+const QR: VFC = () => {
   const [scanflag, setScanflag] = useState<boolean>(true)
   const navigate = useNavigate()
   const location = useLocation()
+  const renderFlgRef = useRef(false)
   const vConsole = new VConsole()
   vConsole.show()
   useEffect(() => {
-    setScanflag(location.state.flag as boolean)
-  }, [location.state.flag])
+    if(renderFlgRef.current) {
+      setScanflag(location.state.flag as boolean)
+    }
+    else {
+      renderFlgRef.current = true
+    }
+  }, [])
   return (
     <ChakraProvider>
       <Container>
