@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
-import type { VFC } from 'react'
+import type { FC } from 'react'
 import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser'
 import { Result } from '@zxing/library'
 
-const QRCodeReader: VFC<{ onReadQRCode: (text: Result) => void }> = ({ onReadQRCode }) => {
+const QRCodeReader: FC<{ onReadQRCode: (text: Result) => void }> = ({ onReadQRCode }) => {
   const controlRef = useRef<IScannerControls | null>()
   const videoRef = useRef<HTMLVideoElement>(null)
 
