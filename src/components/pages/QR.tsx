@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { VFC } from 'react'
 import {
   Text,
   ChakraProvider,
@@ -12,7 +12,7 @@ import QRCodeReader from './QRCodeReader'
 import axios from 'axios'
 import VConsole from 'vconsole'
 
-const QR: FC = () => {
+const QR: VFC = () => {
   const navigate = useNavigate()
   const vConsole = new VConsole()
   vConsole.show()
