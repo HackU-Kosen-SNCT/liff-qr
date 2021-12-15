@@ -48,7 +48,7 @@ const QR: VFC = () => {
                         console.log(r)
                         navigate('/result', { replace: false })
                       })
-                      .catch((e) => {
+                      .catch((e: unknown) => {
                         console.log(e)
                         setScanFlag(false)
                       })
