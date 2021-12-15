@@ -34,7 +34,7 @@ const QR: VFC = () => {
                     .then((profile) => {
                       axios({
                         method: 'PATCH',
-                        url: 'http://localhost:3000/laf/registrant',
+                        url: 'https://togather-api.takumma.net/laf/registrant',
                         data: {
                           registrant: profile.userId,
                           item_id: result.getText()
