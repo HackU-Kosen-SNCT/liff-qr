@@ -38,6 +38,10 @@ const QR: VFC = () => {
                         data: {
                           registrant: profile.userId,
                           item_id: result.getText()
+                        },
+                        headers: {
+                          'Content-type': 'application/json',
+                          'accept': 'application/json'
                         }
                       })
                       .then((r) => {
