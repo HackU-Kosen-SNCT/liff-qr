@@ -40,10 +40,12 @@ const QR: VFC = () => {
                           item_id: result.getText()
                         }
                       })
-                      .then(() => {
+                      .then((r) => {
+                        console.log(r)
                         navigate('/result', { replace: false })
                       })
-                      .catch(() => {
+                      .catch((e) => {
+                        console.log(e)
                         setScanFlag(false)
                       })
                     })
