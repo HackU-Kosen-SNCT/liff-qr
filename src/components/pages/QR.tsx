@@ -12,13 +12,10 @@ import { useNavigate } from 'react-router-dom'
 import QRCodeReader from './QRCodeReader'
 import { Naviflag } from '../utils/Naviflag'
 import axios from 'axios'
-import VConsole from 'vconsole'
 
 const QR: VFC = () => {
   const {scanflag, setScanFlag} = useContext(Naviflag)
   const navigate = useNavigate()
-  const vConsole = new VConsole()
-  vConsole.show()
   return (
     <ChakraProvider>
       <Container>
@@ -44,12 +41,10 @@ const QR: VFC = () => {
                           'accept': 'application/json'
                         }
                       })
-                      .then((r) => {
-                        console.log(r)
+                      .then(() => {
                         navigate('/result', { replace: false })
                       })
-                      .catch((e: unknown) => {
-                        console.log(e)
+                      .catch(() => {
                         setScanFlag(false)
                       })
                     })
